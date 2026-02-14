@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Speaker's Gym — Stop Freezing in Conversations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A843;
+    --gold-light: #E8C97A;
+    --gold-dark: #B8892E;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark-card: #1A1A1A;
+    --dark-border: #2A2A2A;
+    --white: #F5F2ED;
+    --gray: #8A8A8A;
+    --gray-light: #B5B5B5;
+    --red-accent: #C0392B;
+    --green-accent: #27AE60;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- NOISE OVERLAY ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---- NAVIGATION ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 0;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(212,168,67,0.1);
+    transition: all 0.3s;
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+
+  .logo span { color: var(--white); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black);
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(212,168,67,0.3);
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -20%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(212,168,67,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 800px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid var(--gold);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeInUp 0.8s ease;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.08;
+    margin-bottom: 28px;
+    animation: fadeInUp 0.8s ease 0.1s both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 16px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212,168,67,0.3);
+  }
+
+  .btn-primary svg {
+    width: 18px; height: 18px;
+    transition: transform 0.3s;
+  }
+
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .hero-note {
+    font-size: 0.85rem;
+    color: var(--gray);
+  }
+
+  /* ---- SOCIAL PROOF BAR ---- */
+  .proof-bar {
+    padding: 40px 0;
+    border-top: 1px solid var(--dark-border);
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .proof-bar .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+
+  .proof-item {
+    text-align: center;
+  }
+
+  .proof-item .number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--gold);
+  }
+
+  .proof-item .label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 4px;
+  }
+
+  /* ---- PAIN SECTION ---- */
+  .pain-section {
+    padding: 120px 0;
+    position: relative;
+  }
+
+  .section-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border: 1px solid var(--dark-border);
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .pain-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 60px;
+    max-width: 700px;
+  }
+
+  .pain-section h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .pain-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 32px 28px;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pain-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--red-accent);
+    transition: height 0.4s;
+  }
+
+  .pain-card:hover::before { height: 100%; }
+
+  .pain-card:hover {
+    border-color: rgba(192,57,43,0.3);
+    transform: translateY(-4px);
+  }
+
+  .pain-icon {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
+
+  .pain-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .pain-card p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ---- TRANSFORMATION ---- */
+  .transform-section {
+    padding: 120px 0;
+    position: relative;
+  }
+
+  .transform-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+
+  .transform-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 60px;
+  }
+
+  .before-after-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ba-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .tag-before { background: rgba(192,57,43,0.15); color: var(--red-accent); }
+  .tag-after { background: rgba(39,174,96,0.15); color: var(--green-accent); }
+
+  .ba-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ba-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--gray-light);
+  }
+
+  .ba-list li .icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 1rem;
+  }
+
+  .before-list .icon { color: var(--red-accent); }
+  .after-list .icon { color: var(--green-accent); }
+
+  /* ---- HOW IT WORKS ---- */
+  .how-section {
+    padding: 120px 0;
+    background: var(--dark);
+    border-top: 1px solid var(--dark-border);
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .how-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .how-section h2 em { font-style: italic; color: var(--gold); }
+
+  .how-sub {
+    font-size: 1.05rem;
+    color: var(--gray);
+    margin-bottom: 60px;
+    max-width: 550px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .step-card {
+    background: var(--black);
+    border: 1px solid var(--dark-border);
+    border-radius: 14px;
+    padding: 36px 28px;
+    position: relative;
+    transition: all 0.4s;
+  }
+
+  .step-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(212,168,67,0.08);
+  }
+
+  .step-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(212,168,67,0.12);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .step-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .step-card p {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.65;
+  }
+
+  /* ---- WHAT YOU GET ---- */
+  .offer-section {
+    padding: 120px 0;
+  }
+
+  .offer-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .offer-section h2 em { font-style: italic; color: var(--gold); }
+
+  .offer-sub {
+    font-size: 1.05rem;
+    color: var(--gray);
+    margin-bottom: 60px;
+    max-width: 600px;
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .offer-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 30px 26px;
+    transition: all 0.3s;
+  }
+
+  .offer-card:hover {
+    border-color: rgba(212,168,67,0.3);
+  }
+
+  .offer-card-icon {
+    width: 44px; height: 44px;
+    background: rgba(212,168,67,0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+
+  .offer-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .offer-card p {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ---- BONUSES ---- */
+  .bonus-section {
+    padding: 80px 0 120px;
+  }
+
+  .bonus-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 32px;
+    color: var(--gold);
+  }
+
+  .bonus-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .bonus-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(212,168,67,0.04);
+    border: 1px solid rgba(212,168,67,0.12);
+    border-radius: 10px;
+    padding: 18px 22px;
+  }
+
+  .bonus-check {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    background: rgba(212,168,67,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .bonus-item span {
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  /* ---- GUARANTEE ---- */
+  .guarantee-section {
+    padding: 100px 0;
+    background: var(--dark);
+    border-top: 1px solid var(--dark-border);
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .guarantee-box {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .guarantee-icon {
+    font-size: 3rem;
+    margin-bottom: 24px;
+  }
+
+  .guarantee-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+
+  .guarantee-box p {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+
+  /* ---- ABOUT ---- */
+  .about-section {
+    padding: 120px 0;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--dark-card);
+    border-radius: 14px;
+    border: 1px solid var(--dark-border);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--gold);
+    background: linear-gradient(135deg, var(--dark-card), var(--black));
+  }
+
+  .about-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .about-content h2 em { font-style: italic; color: var(--gold); }
+
+  .about-content p {
+    font-size: 1rem;
+    color: var(--gray-light);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .about-content p strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--dark-border);
+  }
+
+  .about-stat .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--gold);
+  }
+
+  .about-stat .desc {
+    font-size: 0.78rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* ---- FAQ ---- */
+  .faq-section {
+    padding: 120px 0;
+    background: var(--dark);
+    border-top: 1px solid var(--dark-border);
+  }
+
+  .faq-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    margin-bottom: 60px;
+  }
+
+  .faq-list {
+    max-width: 750px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .faq-q {
+    padding: 24px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: color 0.3s;
+    user-select: none;
+  }
+
+  .faq-q:hover { color: var(--gold); }
+
+  .faq-toggle {
+    font-size: 1.4rem;
+    color: var(--gold);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 20px;
+  }
+
+  .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    padding-bottom: 24px;
+  }
+
+  .faq-a p {
+    font-size: 0.92rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+
+  /* ---- FINAL CTA ---- */
+  .final-cta {
+    padding: 120px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212,168,67,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .final-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.12;
+    margin-bottom: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .final-cta h2 em { font-style: italic; color: var(--gold); }
+
+  .final-cta .final-sub {
+    font-size: 1.1rem;
+    color: var(--gray-light);
+    margin-bottom: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .final-cta .btn-primary {
+    font-size: 1.05rem;
+    padding: 18px 44px;
+  }
+
+  .final-note {
+    margin-top: 16px;
+    font-size: 0.82rem;
+    color: var(--gray);
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--dark-border);
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    .transform-grid,
+    .offer-grid,
+    .bonus-list {
+      grid-template-columns: 1fr;
+    }
+
+    .steps {
+      grid-template-columns: 1fr;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-image {
+      max-width: 320px;
+      aspect-ratio: 1;
+    }
+
+    .proof-bar .container {
+      gap: 30px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2.2rem; }
+    .hero-sub { font-size: 1rem; }
+    .hero-cta-group { flex-direction: column; align-items: flex-start; }
+    .nav-cta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="logo">Speaker's <span>Gym</span></div>
+    <a href="#book" class="nav-cta">Book Your Free Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag">Free Conversation Assessment</div>
+      <h1>You Know What to Say.<br>Your Voice Just <em>Won't Cooperate.</em></h1>
+      <p class="hero-sub">In 90 days, go from freezing in conversations to connecting with anyone — at networking events, meetings, or any room you walk into. No scripts. No faking confidence. Just real skill.</p>
+      <div class="hero-cta-group">
+        <a href="#book" class="btn-primary">
+          Book Your Free Call
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="hero-note">Free 15-min conversation assessment — no pitch, just clarity.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF BAR -->
+<section class="proof-bar">
+  <div class="container">
+    <div class="proof-item">
+      <div class="number">10+</div>
+      <div class="label">Years Teaching</div>
+    </div>
+    <div class="proof-item">
+      <div class="number">100+</div>
+      <div class="label">Speakers Coached</div>
+    </div>
+    <div class="proof-item">
+      <div class="number">90</div>
+      <div class="label">Day System</div>
+    </div>
+    <div class="proof-item">
+      <div class="number">100%</div>
+      <div class="label">Money Back Guarantee</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="pain-section">
+  <div class="container">
+    <div class="section-tag">Sound familiar?</div>
+    <h2 class="reveal">You're Intelligent. Capable.<br>So Why Do Conversations<br>Make You Feel <em>Small?</em></h2>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <div class="pain-icon">🧊</div>
+        <h3>You freeze at the start</h3>
+        <p>Someone says "So tell me about yourself" and your mind goes blank. You know the answer — but your mouth won't cooperate.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🔇</div>
+        <h3>You run out of things to say</h3>
+        <p>The conversation dries up after 30 seconds. Awkward silence. You reach for your phone pretending to check something important.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🔄</div>
+        <h3>You overthink everything after</h3>
+        <p>"Why did I say that?" replays in your head for hours. You dissect every word, convinced you came across wrong.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🎭</div>
+        <h3>You hide your real personality</h3>
+        <p>People see the quiet, safe version of you. The witty, thoughtful, interesting person stays locked behind the nervousness.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🚪</div>
+        <h3>You avoid networking events</h3>
+        <p>You know these events could change your career. But you stay in the corner, leave early, or don't show up at all.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">📉</div>
+        <h3>You're leaving opportunities on the table</h3>
+        <p>Promotions, partnerships, friendships — all require conversations you're currently avoiding. The cost compounds daily.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION -->
+<section class="transform-section">
+  <div class="container">
+    <div class="section-tag">The Transformation</div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:900; line-height:1.15; margin-bottom:16px;">From <em>Nervous Silence</em> to Natural Connection</h2>
+    <p class="reveal" style="font-size:1.05rem; color:var(--gray); margin-bottom:0; max-width:550px;">This is what changes when conversation becomes a skill you own — not a situation you survive.</p>
+    <div class="transform-grid">
+      <div class="before-after-col reveal">
+        <h3><span class="ba-tag tag-before">Before</span> Where you are now</h3>
+        <ul class="ba-list before-list">
+          <li><span class="icon">✕</span> Freeze when someone puts you on the spot</li>
+          <li><span class="icon">✕</span> Run out of things to say within minutes</li>
+          <li><span class="icon">✕</span> Overthink what you said for hours afterward</li>
+          <li><span class="icon">✕</span> Avoid events, calls, and meetings</li>
+          <li><span class="icon">✕</span> Feel like you're hiding your real self</li>
+          <li><span class="icon">✕</span> Watch opportunities pass you by</li>
+        </ul>
+      </div>
+      <div class="before-after-col reveal">
+        <h3><span class="ba-tag tag-after">After</span> 90 days from now</h3>
+        <ul class="ba-list after-list">
+          <li><span class="icon">✓</span> Walk into any room and start a conversation naturally</li>
+          <li><span class="icon">✓</span> Have an abundance of stories and things to say</li>
+          <li><span class="icon">✓</span> Feel calm and present — not performing</li>
+          <li><span class="icon">✓</span> Actually look forward to networking events</li>
+          <li><span class="icon">✓</span> Show people who you really are</li>
+          <li><span class="icon">✓</span> Open doors you didn't know existed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-tag">How It Works</div>
+    <h2 class="reveal">A System, Not a <em>Pep Talk</em></h2>
+    <p class="how-sub reveal">The Speaker's Gym treats conversation like a trainable skill. Here's the method behind the transformation.</p>
+    <div class="steps">
+      <div class="step-card reveal">
+        <div class="step-number">01</div>
+        <h3>Rewire the Mindset</h3>
+        <p>We remove psychological brakes — the overthinking, the perfectionism, the fear of judgment. You learn the 5-Second Rule and reframing techniques that let you actually act, not just plan.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">02</div>
+        <h3>Build the Skills</h3>
+        <p>Vocal variety, conversation structure, storytelling frameworks — concrete tools so you always know what to say and how to say it. No vague "just be yourself" advice.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">03</div>
+        <h3>Train with Reps</h3>
+        <p>Daily drills in the Speaker's Gym app with AI-powered feedback. Weekly live workshops with real coaching. A focused community that holds you accountable through action.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="offer-section">
+  <div class="container">
+    <div class="section-tag">What's included</div>
+    <h2 class="reveal">Everything You Need to <em>Own the Room</em></h2>
+    <p class="offer-sub reveal">90 days of structured training designed to make confident conversation your default mode.</p>
+    <div class="offer-grid">
+      <div class="offer-card reveal">
+        <div class="offer-card-icon">📱</div>
+        <h3>Speaker's Gym AI App</h3>
+        <p>Your personal AI conversation coach. Daily drills, progress tracking, and instant feedback — so you know exactly what to practice without social pressure.</p>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-card-icon">🎥</div>
+        <h3>Full Course Modules</h3>
+        <p>Mindset rewiring, vocal delivery, conversation structure, and storytelling mastery — the complete system from zero to confident communicator.</p>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-card-icon">📞</div>
+        <h3>Live Coaching Calls</h3>
+        <p>Weekly workshops where we install core skills in real time, plus live Q&A so you never stay stuck. Direct access to Marouane.</p>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-card-icon">👥</div>
+        <h3>Private Community</h3>
+        <p>A focused group of people training conversation skills through action. Accountability, feedback, and the energy of others on the same mission.</p>
+      </div>
+    </div>
+
+    <!-- BONUSES -->
+    <div class="bonus-section reveal">
+      <h3>+ Bonuses Included Free</h3>
+      <div class="bonus-list">
+        <div class="bonus-item">
+          <div class="bonus-check">✓</div>
+          <span>Emergency Story Prep Kit — never get caught off guard again</span>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-check">✓</div>
+          <span>10 Workplace Story Starters — eliminate "I don't know what to say"</span>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-check">✓</div>
+          <span>Vocal Warm-Up Audio — an immediate physical tool you can use before any event</span>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-check">✓</div>
+          <span>Story Examples Video — see exactly what "good" looks like</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee-section">
+  <div class="container">
+    <div class="guarantee-box reveal">
+      <div class="guarantee-icon">🛡️</div>
+      <h2>The "Speak Up or Money Back" Guarantee</h2>
+      <p>Complete the system and attend 3 live workshops. If you don't speak up confidently in at least one high-stakes meeting — you get a full refund and I coach you personally until you do. That's how confident I am this works.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <div class="about-image-placeholder">M</div>
+      </div>
+      <div class="about-content reveal">
+        <div class="section-tag">Your Coach</div>
+        <h2>Hey, I'm <em>Marouane.</em></h2>
+        <p>I know what it feels like to be the person in the corner. To have thoughts you can't get out. To watch opportunities walk away because your voice collapsed at the worst moment.</p>
+        <p>I spent years studying communication — not from a textbook, but from the inside out. I became a <strong>keynote speaker</strong>, not because I was born confident, but because I built a system that made confidence trainable.</p>
+        <p>Now I help others do the same through <strong>The Speaker's Gym</strong> — a program built on daily reps, real feedback, and the belief that conversation is the most valuable skill you're not training.</p>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="val">10+</div>
+            <div class="desc">Years Speaking</div>
+          </div>
+          <div class="about-stat">
+            <div class="val">Keynote</div>
+            <div class="desc">Speaker</div>
+          </div>
+          <div class="about-stat">
+            <div class="val">MOUN</div>
+            <div class="desc">Academy Founder</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <h2 class="reveal">Common Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">What is the Conversation Assessment call?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>It's a free 15-minute call where we identify your specific conversation challenges and build a clear picture of what's holding you back. You'll walk away with actionable insight regardless of whether you join the program.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">I'm not a terrible speaker — I just struggle in spontaneous conversations. Is this for me?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>That's exactly who this is for. Many of our members can deliver presentations just fine — it's the unscripted moments that trip them up. The Speaker's Gym specifically trains conversational fluency, not just stage presence.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">How much time does it require per day?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>About 10-15 minutes of daily practice through the Speaker's Gym app, plus one live workshop per week. The system is designed for working professionals with full schedules.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">What if I've tried other programs and they didn't work?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Most programs give you theory. We give you reps. The difference is daily practice with AI feedback and live coaching. If you do the work and it doesn't click, you're covered by our money-back guarantee.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Is this only for networking events?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>No — the skills transfer everywhere. Meetings, social gatherings, dates, phone calls, chance encounters. Any moment where you want to connect with someone and feel like yourself doing it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="book">
+  <div class="container">
+    <div class="section-tag">Take the first step</div>
+    <h2 class="reveal">Ready to Stop <em>Hiding</em><br>in Conversations?</h2>
+    <p class="final-sub reveal">Book your free Conversation Assessment. In 15 minutes, we'll pinpoint exactly what's holding you back — and map out how to fix it.</p>
+    <a href="https://calendly.com/YOUR-LINK" class="btn-primary reveal" target="_blank" rel="noopener">
+      Book Your Free Conversation Assessment
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="final-note reveal">Free · 15 minutes · No obligation</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© 2026 The Speaker's Gym by <a href="https://skool.com/moun-academy-2097" target="_blank">MOUN Academy</a>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
