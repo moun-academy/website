@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Speaker's Gym — Stop Freezing in Conversations</title>
+<meta name="description" content="Book your free 15-minute Conversation Assessment and get a clear plan to speak confidently in meetings, networking events, and everyday conversations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Meta Pixel Code -->
@@ -67,10 +68,20 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     padding: 0 24px;
   }
 
+  .topbar {
+    background: linear-gradient(90deg, rgba(212,168,67,0.16), rgba(212,168,67,0.05));
+    color: var(--white);
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(212,168,67,0.2);
+  }
+
   /* ---- NAVIGATION ---- */
   nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 42px; left: 0; right: 0;
     z-index: 100;
     padding: 20px 0;
     background: rgba(10,10,10,0.85);
@@ -119,7 +130,7 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 100px;
+    padding-top: 140px;
     position: relative;
     overflow: hidden;
   }
@@ -215,6 +226,24 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
   .hero-note {
     font-size: 0.85rem;
     color: var(--gray);
+  }
+
+  .hero-points {
+    margin-top: 26px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+    gap: 10px;
+    max-width: 700px;
+  }
+
+  .hero-points li {
+    background: rgba(212,168,67,0.06);
+    border: 1px solid rgba(212,168,67,0.16);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: var(--gray-light);
+    padding: 10px 12px;
   }
 
   /* ---- SOCIAL PROOF BAR ---- */
@@ -840,6 +869,40 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     color: var(--gray);
   }
 
+  .testimonial-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--dark-border);
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  .testimonial-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 26px 22px;
+  }
+
+  .testimonial-card p {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .testimonial-card .author {
+    font-size: 0.82rem;
+    color: var(--gold-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
   /* ---- FOOTER ---- */
   footer {
     padding: 40px 0;
@@ -882,8 +945,14 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
       grid-template-columns: 1fr;
     }
 
-    .steps {
+    .steps,
+    .testimonial-grid {
       grid-template-columns: 1fr;
+    }
+
+    .hero-points {
+      grid-template-columns: 1fr;
+      max-width: 420px;
     }
 
     .about-grid {
@@ -905,16 +974,20 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     .hero-sub { font-size: 1rem; }
     .hero-cta-group { flex-direction: column; align-items: flex-start; }
     .nav-cta { display: none; }
+    .topbar { font-size: 0.76rem; }
+    nav { top: 38px; }
   }
 </style>
 </head>
 <body>
 
+<div class="topbar">⚡ This week only: Free Conversation Assessment spots are limited — book now.</div>
+
 <!-- NAV -->
 <nav>
   <div class="container">
     <div class="logo">Speaker's <span>Gym</span></div>
-    <a href="#book" class="nav-cta">Book Your Free Call</a>
+    <a href="https://calendly.com/marouane-almandri/30min" class="nav-cta" target="_blank" rel="noopener">Book Your Free Call</a>
   </div>
 </nav>
 
@@ -926,12 +999,17 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
       <h1>You Know What to Say.<br>Your Voice Just <em>Won't Cooperate.</em></h1>
       <p class="hero-sub">In 90 days, go from freezing in conversations to connecting with anyone — at networking events, meetings, or any room you walk into. No scripts. No faking confidence. Just real skill.</p>
       <div class="hero-cta-group">
-        <a href="#book" class="btn-primary">
+        <a href="https://calendly.com/marouane-almandri/30min" class="btn-primary" target="_blank" rel="noopener">
           Book Your Free Call
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <span class="hero-note">Free 15-min conversation assessment — no pitch, just clarity.</span>
       </div>
+      <ul class="hero-points">
+        <li>✅ Immediate access to calendar</li>
+        <li>✅ Personalized action plan on the call</li>
+        <li>✅ Zero obligation to join any program</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -954,6 +1032,28 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     <div class="proof-item">
       <div class="number">100%</div>
       <div class="label">Money Back Guarantee</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="section-tag">Client Results</div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:900; line-height:1.15;">What Changed After They <em>Started Speaking Up</em></h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal">
+        <p>"After 3 weeks, I stopped freezing in team meetings. For the first time, I shared an idea without rehearsing it 20 times in my head."</p>
+        <div class="author">— Product Manager, Brussels</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p>"The call alone gave me clarity. The drills made conversation feel automatic, and I now network without that constant panic."</p>
+        <div class="author">— Consultant, Paris</div>
+      </div>
+      <div class="testimonial-card reveal">
+        <p>"I used to avoid introducing myself. Now I lead conversations with clients and feel in control of my voice."</p>
+        <div class="author">— Founder, Amsterdam</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1201,11 +1301,11 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     <div class="section-tag">Take the first step</div>
     <h2 class="reveal">Ready to Stop <em>Hiding</em><br>in Conversations?</h2>
     <p class="final-sub reveal">Book your free Conversation Assessment. In 15 minutes, we'll pinpoint exactly what's holding you back — and map out how to fix it.</p>
-    <a href="https://calendly.com/marouane-almandri/30min" class="btn-primary reveal" target="_blank" rel="noopener">
+    <a href="https://calendly.com/marouane-almandri/30min" class="btn-primary reveal" target="_blank" rel="noopener noreferrer">
       Book Your Free Conversation Assessment
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
-    <p class="final-note reveal">Free · 15 minutes · No obligation</p>
+    <p class="final-note reveal">Free · 15 minutes · No obligation · Direct to Calendly</p>
   </div>
 </section>
 
