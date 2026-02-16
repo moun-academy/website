@@ -164,20 +164,6 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     max-width: 800px;
   }
 
-  .hero-tag {
-    display: inline-block;
-    padding: 6px 16px;
-    border: 1px solid var(--gold);
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    animation: fadeInUp 0.8s ease;
-  }
-
   .hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.8rem, 6vw, 4.5rem);
@@ -661,59 +647,27 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     margin-bottom: 50px;
   }
 
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .testimonial-card {
-    background: var(--dark-card);
-    border: 1px solid var(--dark-border);
+  .testimonial-embed {
+    max-width: 900px;
+    margin: 0 auto;
     border-radius: 14px;
+    border: 1px solid var(--dark-border);
     overflow: hidden;
+    box-shadow: 0 0 30px rgba(212, 168, 67, 0.08);
   }
 
-  .testimonial-video {
+  .testimonial-embed-inner {
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
-    background: var(--black);
   }
 
-  .testimonial-video video {
+  .testimonial-embed-inner iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
-
-  .testimonial-info {
-    padding: 20px;
-  }
-
-  .testimonial-name {
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-
-  .testimonial-quote {
-    font-size: 0.9rem;
-    color: var(--gray);
-    line-height: 1.4;
-    margin-bottom: 8px;
-  }
-
-  .testimonial-label {
-    font-size: 0.75rem;
-    color: var(--gold-dark);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
   }
 
   /* ---- GUARANTEE ---- */
@@ -972,8 +926,7 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
     .transform-grid,
-    .offer-grid,
-    .testimonials-grid {
+    .offer-grid {
       grid-template-columns: 1fr;
     }
 
@@ -1020,7 +973,6 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 <section class="hero">
   <div class="container">
     <div class="hero-content">
-      <div class="hero-tag">Free Conversation Assessment</div>
       <h1>You Know What to Say.<br>Your Voice Just <em>Won't Cooperate.</em></h1>
       <p class="hero-sub">In 90 days, go from freezing in conversations to connecting with anyone — at networking events, meetings, or any room you walk into. No scripts. No faking confidence. Just real skill.</p>
       <div class="hero-cta-group">
@@ -1208,36 +1160,9 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     <div class="section-tag reveal">Testimonials</div>
     <h2 class="reveal">Real People. Real <em>Results.</em></h2>
     <p class="testimonials-sub reveal">Hear from members who transformed the way they communicate.</p>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <div class="testimonial-video">
-          <video controls src="" poster=""><!-- Replace with your video URL --></video>
-        </div>
-        <div class="testimonial-info">
-          <div class="testimonial-name">First Last</div>
-          <div class="testimonial-quote">"One-line result quote goes here."</div>
-          <div class="testimonial-label">Member</div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-video">
-          <video controls src="" poster=""><!-- Replace with your video URL --></video>
-        </div>
-        <div class="testimonial-info">
-          <div class="testimonial-name">First Last</div>
-          <div class="testimonial-quote">"One-line result quote goes here."</div>
-          <div class="testimonial-label">Member</div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-video">
-          <video controls src="" poster=""><!-- Replace with your video URL --></video>
-        </div>
-        <div class="testimonial-info">
-          <div class="testimonial-name">First Last</div>
-          <div class="testimonial-quote">"One-line result quote goes here."</div>
-          <div class="testimonial-label">Member</div>
-        </div>
+    <div class="testimonial-embed reveal">
+      <div class="testimonial-embed-inner">
+        <iframe src="https://player.vimeo.com/video/1165358526?badge=0&autopause=0&player_id=0&app_id=58479" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
