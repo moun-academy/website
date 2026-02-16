@@ -116,10 +116,11 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 
   /* ---- HERO ---- */
   .hero {
-    min-height: 100vh;
+    min-height: auto;
     display: flex;
     align-items: center;
     padding-top: 100px;
+    padding-bottom: 60px;
     position: relative;
     overflow: hidden;
   }
@@ -215,6 +216,39 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
   .hero-note {
     font-size: 0.85rem;
     color: var(--gray);
+  }
+
+  .hero-secondary {
+    margin-top: 20px;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--gold);
+    padding: 14px 32px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(212, 168, 67, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(212, 168, 67, 0.15);
+  }
+
+  .hero-secondary-note {
+    font-size: 0.78rem;
+    color: var(--gray);
+    margin-top: 10px;
   }
 
   /* ---- SOCIAL PROOF BAR ---- */
@@ -930,7 +964,11 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
           Book Your Free Call
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <span class="hero-note">Free 15-min conversation assessment — no pitch, just clarity.</span>
+        <span class="hero-note">Free 30-min Conversation Assessment.</span>
+      </div>
+      <div class="hero-secondary">
+        <a href="https://www.skool.com/moun-academy-2097" class="btn-ghost" target="_blank" rel="noopener">Join the Free Community &rarr;</a>
+        <p class="hero-secondary-note">100% Free — No credit card required</p>
       </div>
     </div>
   </div>
