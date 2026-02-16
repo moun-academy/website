@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,6 +95,12 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 
   .logo span { color: var(--white); }
 
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   .nav-cta {
     background: var(--gold);
     color: var(--black);
@@ -112,6 +118,26 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     background: var(--gold-light);
     transform: translateY(-1px);
     box-shadow: 0 4px 20px rgba(212,168,67,0.3);
+  }
+
+  .nav-ghost {
+    background: transparent;
+    color: var(--gold);
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: 1.5px solid var(--gold);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .nav-ghost:hover {
+    background: rgba(212, 168, 67, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(212,168,67,0.15);
   }
 
   /* ---- HERO ---- */
@@ -136,20 +162,6 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 
   .hero-content {
     max-width: 800px;
-  }
-
-  .hero-tag {
-    display: inline-block;
-    padding: 6px 16px;
-    border: 1px solid var(--gold);
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    animation: fadeInUp 0.8s ease;
   }
 
   .hero h1 {
@@ -548,7 +560,7 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 
   /* ---- WHAT YOU GET ---- */
   .offer-section {
-    padding: 120px 0;
+    padding: 100px 0;
   }
 
   .offer-section h2 {
@@ -609,50 +621,53 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     line-height: 1.6;
   }
 
-  /* ---- BONUSES ---- */
-  .bonus-section {
-    padding: 80px 0 120px;
+  /* ---- TESTIMONIALS ---- */
+  .testimonials-section {
+    padding: 100px 0;
   }
 
-  .bonus-section h3 {
+  .testimonials-section h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    margin-bottom: 32px;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .testimonials-section h2 em {
     color: var(--gold);
+    font-style: italic;
   }
 
-  .bonus-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+  .testimonials-sub {
+    text-align: center;
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 50px;
   }
 
-  .bonus-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: rgba(212,168,67,0.04);
-    border: 1px solid rgba(212,168,67,0.12);
-    border-radius: 10px;
-    padding: 18px 22px;
+  .testimonial-embed {
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 14px;
+    border: 1px solid var(--dark-border);
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(212, 168, 67, 0.08);
   }
 
-  .bonus-check {
-    flex-shrink: 0;
-    width: 28px; height: 28px;
-    background: rgba(212,168,67,0.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    font-size: 0.85rem;
-    font-weight: 700;
+  .testimonial-embed-inner {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
   }
 
-  .bonus-item span {
-    font-size: 0.92rem;
-    font-weight: 500;
+  .testimonial-embed-inner iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   /* ---- GUARANTEE ---- */
@@ -911,8 +926,7 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
     .transform-grid,
-    .offer-grid,
-    .bonus-list {
+    .offer-grid {
       grid-template-columns: 1fr;
     }
 
@@ -938,7 +952,7 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     .hero h1 { font-size: 2.2rem; }
     .hero-sub { font-size: 1rem; }
     .hero-cta-group { flex-direction: column; align-items: flex-start; }
-    .nav-cta { display: none; }
+    .nav-links { display: none; }
   }
 </style>
 </head>
@@ -948,7 +962,10 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 <nav>
   <div class="container">
     <div class="logo">Speaker's <span>Gym</span></div>
-    <a href="https://calendly.com/marouane-almandri/30min" class="nav-cta" target="_blank" rel="noopener">Book Your Free Call</a>
+    <div class="nav-links">
+      <a href="#testimonials" class="nav-ghost">Testimonials</a>
+      <a href="https://calendly.com/marouane-almandri/30min" class="nav-cta" target="_blank" rel="noopener">Book Your Free Call</a>
+    </div>
   </div>
 </nav>
 
@@ -956,7 +973,6 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 <section class="hero">
   <div class="container">
     <div class="hero-content">
-      <div class="hero-tag">Free Conversation Assessment</div>
       <h1>You Know What to Say.<br>Your Voice Just <em>Won't Cooperate.</em></h1>
       <p class="hero-sub">In 90 days, go from freezing in conversations to connecting with anyone — at networking events, meetings, or any room you walk into. No scripts. No faking confidence. Just real skill.</p>
       <div class="hero-cta-group">
@@ -1135,27 +1151,18 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
         <p>A focused group of people training conversation skills through action. Accountability, feedback, and the energy of others on the same mission.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- BONUSES -->
-    <div class="bonus-section reveal">
-      <h3>+ Bonuses Included Free</h3>
-      <div class="bonus-list">
-        <div class="bonus-item">
-          <div class="bonus-check">✓</div>
-          <span>Emergency Story Prep Kit — never get caught off guard again</span>
-        </div>
-        <div class="bonus-item">
-          <div class="bonus-check">✓</div>
-          <span>10 Workplace Story Starters — eliminate "I don't know what to say"</span>
-        </div>
-        <div class="bonus-item">
-          <div class="bonus-check">✓</div>
-          <span>Vocal Warm-Up Audio — an immediate physical tool you can use before any event</span>
-        </div>
-        <div class="bonus-item">
-          <div class="bonus-check">✓</div>
-          <span>Story Examples Video — see exactly what "good" looks like</span>
-        </div>
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-tag reveal">Testimonials</div>
+    <h2 class="reveal">Real People. Real <em>Results.</em></h2>
+    <p class="testimonials-sub reveal">Hear from members who transformed the way they communicate.</p>
+    <div class="testimonial-embed reveal">
+      <div class="testimonial-embed-inner">
+        <iframe src="https://player.vimeo.com/video/1165358526?badge=0&autopause=0&player_id=0&app_id=58479" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
