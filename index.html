@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,6 +95,12 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 
   .logo span { color: var(--white); }
 
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   .nav-cta {
     background: var(--gold);
     color: var(--black);
@@ -112,6 +118,26 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     background: var(--gold-light);
     transform: translateY(-1px);
     box-shadow: 0 4px 20px rgba(212,168,67,0.3);
+  }
+
+  .nav-ghost {
+    background: transparent;
+    color: var(--gold);
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: 1.5px solid var(--gold);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .nav-ghost:hover {
+    background: rgba(212, 168, 67, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(212,168,67,0.15);
   }
 
   /* ---- HERO ---- */
@@ -655,6 +681,87 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     font-weight: 500;
   }
 
+  /* ---- TESTIMONIALS ---- */
+  .testimonials-section {
+    padding: 100px 0;
+  }
+
+  .testimonials-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .testimonials-section h2 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .testimonials-sub {
+    text-align: center;
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 50px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .testimonial-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: var(--black);
+  }
+
+  .testimonial-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimonial-info {
+    padding: 20px;
+  }
+
+  .testimonial-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .testimonial-quote {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .testimonial-label {
+    font-size: 0.75rem;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+
   /* ---- GUARANTEE ---- */
   .guarantee-section {
     padding: 100px 0;
@@ -912,7 +1019,8 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
   @media (max-width: 900px) {
     .transform-grid,
     .offer-grid,
-    .bonus-list {
+    .bonus-list,
+    .testimonials-grid {
       grid-template-columns: 1fr;
     }
 
@@ -938,7 +1046,7 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     .hero h1 { font-size: 2.2rem; }
     .hero-sub { font-size: 1rem; }
     .hero-cta-group { flex-direction: column; align-items: flex-start; }
-    .nav-cta { display: none; }
+    .nav-links { display: none; }
   }
 </style>
 </head>
@@ -948,7 +1056,10 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 <nav>
   <div class="container">
     <div class="logo">Speaker's <span>Gym</span></div>
-    <a href="https://calendly.com/marouane-almandri/30min" class="nav-cta" target="_blank" rel="noopener">Book Your Free Call</a>
+    <div class="nav-links">
+      <a href="#testimonials" class="nav-ghost">Testimonials</a>
+      <a href="https://calendly.com/marouane-almandri/30min" class="nav-cta" target="_blank" rel="noopener">Book Your Free Call</a>
+    </div>
   </div>
 </nav>
 
@@ -1155,6 +1266,47 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
         <div class="bonus-item">
           <div class="bonus-check">✓</div>
           <span>Story Examples Video — see exactly what "good" looks like</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-tag reveal">Testimonials</div>
+    <h2 class="reveal">Real People. Real <em>Results.</em></h2>
+    <p class="testimonials-sub reveal">Hear from members who transformed the way they communicate.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-video">
+          <video controls src="" poster=""><!-- Replace with your video URL --></video>
+        </div>
+        <div class="testimonial-info">
+          <div class="testimonial-name">First Last</div>
+          <div class="testimonial-quote">"One-line result quote goes here."</div>
+          <div class="testimonial-label">Member</div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-video">
+          <video controls src="" poster=""><!-- Replace with your video URL --></video>
+        </div>
+        <div class="testimonial-info">
+          <div class="testimonial-name">First Last</div>
+          <div class="testimonial-quote">"One-line result quote goes here."</div>
+          <div class="testimonial-label">Member</div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-video">
+          <video controls src="" poster=""><!-- Replace with your video URL --></video>
+        </div>
+        <div class="testimonial-info">
+          <div class="testimonial-name">First Last</div>
+          <div class="testimonial-quote">"One-line result quote goes here."</div>
+          <div class="testimonial-label">Member</div>
         </div>
       </div>
     </div>
