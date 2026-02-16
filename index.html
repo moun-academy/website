@@ -145,10 +145,28 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     min-height: auto;
     display: flex;
     align-items: center;
-    padding-top: 100px;
+    padding-top: 180px;
     padding-bottom: 60px;
     position: relative;
     overflow: hidden;
+  }
+
+  .hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 0;
   }
 
   .hero::before {
@@ -158,10 +176,13 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
     width: 700px; height: 700px;
     background: radial-gradient(circle, rgba(212,168,67,0.06) 0%, transparent 70%);
     pointer-events: none;
+    z-index: 1;
   }
 
   .hero-content {
     max-width: 800px;
+    position: relative;
+    z-index: 1;
   }
 
   .hero h1 {
@@ -971,6 +992,8 @@ src="https://www.facebook.com/tr?id=952702819397221&ev=PageView&noscript=1"
 
 <!-- HERO -->
 <section class="hero">
+  <iframe class="hero-video-bg" src="https://player.cloudinary.com/embed/?cloud_name=dhiryu0on&public_id=Highlights_khom2y&autoplay=true&loop=true&muted=true&controls=false&background=true" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  <div class="hero-overlay"></div>
   <div class="container">
     <div class="hero-content">
       <h1>You Know What to Say.<br>Your Voice Just <em>Won't Cooperate.</em></h1>
